@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>{% load static %}
+{% load color_filter %}
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Инфляция в России</title>
     <!--Import Google Icon Font-->
@@ -10,19 +12,38 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </head>
+</head>
 
-  <body>
-    {% block content %}
-      <div class="row">
-        <h1 class="col s12">Инфляция в России</h1>
-        <div class="col s12 m8">
-        
+<body>
+{% block content %}
+<div class="row">
+    <h1 class="col s12">Инфляция в России</h1>
+    <div class="col s12 m8">
+
         <!-- Ваша логика -->
+        <table>
+            {% for row in rows %}
+            <tr>
+                {%for i in row%}
 
-        </div>
-      </div>
-    {% endblock %}
+                    {% if i is row|last and row|length == 14%}
+                        <td style="background:#808080">{{i}}</td>
+                    {%else%}
+                        {% if i != row|first %}
+                            {{i|pick_color|safe}}
+                        {% else %}
+                            <td>{{i}}</td>
+                        {% endif %}
+                    {% endif %}
 
-  </body>
+                {%endfor%}
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+</body>
 </html>
