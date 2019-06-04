@@ -7,45 +7,41 @@ from django.shortcuts import render
 def file_list(request, year=None, month=None, day=None):
     template_name = 'index.html'
     path = settings.FILES_PATH
-    files = os.listdir(path)
+    logs = os.listdir(path)
 
     result = dict()
     result['files'] = list()
 
-    for file in files:
-        statinfo = os.stat(path + '/' + file)
-        file_ctime = datetime.fromtimestamp(statinfo[9]).strftime('%d %B %Y г. %H:%M')
-        file_mtime = datetime.fromtimestamp(statinfo[8]).strftime('%d %B %Y г. %H:%M')
+    for log in logs:
+        statinfo = os.stat(path + '/' + log)
+        log_ctime = datetime.fromtimestamp(statinfo[9])
+        log_mtime = datetime.fromtimestamp(statinfo[8])
 
-        context = {
-            'files': [
-                {'name': file,
-                 'ctime': file_ctime,
-                 'mtime': file_mtime}
-            ],
-        }
-        result['files'] += context['files']
+        formated_log = {
+            'name': log,
+            'ctime': log_ctime,
+            'mtime': log_mtime}
 
-    if year and month and day:
-        my_date = datetime(year, month, day).strftime('%d %B %Y г. %H:%M')
-        my_date = datetime.strptime(my_date, '%d %B %Y г. %H:%M')
-        res = list()
-        for file in result['files']:
-            file['ctime'] = datetime.strptime(file['ctime'], '%d %B %Y г. %H:%M')
-            file['mtime']= datetime.strptime(file['mtime'], '%d %B %Y г. %H:%M')
-            if file['ctime'].date() == my_date.date():
-                res.append(file)
-        return render(request, template_name, context={'files': res, 'date': my_date.date()})
+        if all([year, month, day]):
+            result['date'] = datetime(year, month, day)
+            if formated_log['ctime'].date() == result['date'].date():
+                result['files'].append(formated_log)
+        else:
+            result['files'].append(formated_log)
 
-    return render(request, template_name, context={'files': result['files']})
+    if result.get('date'):
+        context = {'files': result['files'], 'date': result['date']}
+    else:
+        context = {'files': result['files']}
+
+    return render(request, template_name, context=context)
 
 
 def file_content(request, name):
-    # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
     path = settings.FILES_PATH
-    files = os.listdir(path)
-    for file in files:
-        if name == file:
-            with open(path + '/' + file) as f:
+    logs = os.listdir(path)
+    for log in logs:
+        if name == log:
+            with open(path + '/' + log) as f:
                 content = f.read()
-            return render(request, 'file_content.html', context={'file_name': file, 'file_content': content})
+            return render(request, 'file_content.html', context={'file_name': log, 'file_content': content})

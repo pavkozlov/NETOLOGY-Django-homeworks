@@ -1,9 +1,8 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.urls import reverse
 import csv
 from django.conf import settings
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage
 from urllib.parse import urlencode
 
 
@@ -13,14 +12,12 @@ def index(request):
 
 def bus_stations(request):
     file = settings.BUS_STATION_CSV
-    result = list()
     order = ['ID', 'Name', 'Longitude_WGS84', 'Latitude_WGS84', 'Street', 'AdmArea', 'District', 'RouteNumbers',
              'StationName', 'Direction', 'Pavilion', 'OperatingOrgName', 'EntryState', 'global_id', 'geoData']
     with open(file, encoding='cp1251') as f:
         f.readline()
         reader = csv.DictReader(f, fieldnames=order)
-        for row in reader:
-            result.append(dict(row))
+        result = list(reader)
 
     paginator = Paginator(result, 10)
     page = request.GET.get('page')
