@@ -4,7 +4,7 @@ import os
 from django.shortcuts import render
 
 
-def file_list(request, year=None, month=None, day=None):
+def file_list(request, date=None):
     template_name = 'index.html'
     path = settings.FILES_PATH
     logs = os.listdir(path)
@@ -22,9 +22,9 @@ def file_list(request, year=None, month=None, day=None):
             'ctime': log_ctime,
             'mtime': log_mtime}
 
-        if all([year, month, day]):
-            result['date'] = datetime(year, month, day)
-            if formated_log['ctime'].date() == result['date'].date():
+        if date:
+            result['date'] = datetime.strptime(date, '%Y-%m-%d').date()
+            if formated_log['ctime'].date() == result['date']:
                 result['files'].append(formated_log)
         else:
             result['files'].append(formated_log)
