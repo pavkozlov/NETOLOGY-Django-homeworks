@@ -1,17 +1,8 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
-{% block navbar %}
-<li><a href="{% url 'examples' %}">Примеры</a></li>
-<li><a href="{% url 'contacts' %}">Контакты</a></li>
-<li class="active"><a href="{% url 'about' %}">О проекте</a></li>
-{% endblock %}
-
-
 {% block name %}О компании {% endblock %}
 
 {% block contents %}
-<div class="col s12 m8">
     <div>Производим компьютеры с 1976 года</div>
-</div>
 {% endblock %}

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>{% load static %}
 {% load color_filter %}
 <html>
@@ -20,27 +19,27 @@
     <h1 class="col s12">Инфляция в России</h1>
     <div class="col s12 m8">
 
-        <!-- Ваша логика -->
         <table>
-            {% for row in rows %}
+            {% for i in rows %}
             <tr>
-                {%for i in row%}
-
-                    {% if i is row|last and row|length == 14%}
-                        <td style="background:#808080">{{i}}</td>
-                    {%else%}
-                        {% if i != row|first %}
-                            {{i|pick_color|safe}}
-                        {% else %}
-                            <td>{{i}}</td>
-                        {% endif %}
-                    {% endif %}
-
-                {%endfor%}
+                <td>{{i.year | default:'-'}}</td>
+                <td style="background:{{i.jan|pick_color}}">{{i.jan | default:'-'}}</td>
+                <td style="background:{{i.feb|pick_color}}">{{i.feb | default:'-'}}</td>
+                <td style="background:{{i.march|pick_color}}">{{i.march | default:'-'}}</td>
+                <td style="background:{{i.apr|pick_color}}">{{i.apr | default:'-'}}</td>
+                <td style="background:{{i.may|pick_color}}">{{i.may | default:'-'}}</td>
+                <td style="background:{{i.jun|pick_color}}">{{i.jun | default:'-'}}</td>
+                <td style="background:{{i.july|pick_color}}">{{i.july | default:'-'}}</td>
+                <td style="background:{{i.aug|pick_color}}">{{i.aug | default:'-'}}</td>
+                <td style="background:{{i.sept|pick_color}}">{{i.sept | default:'-'}}</td>
+                <td style="background:{{i.oct|pick_color}}">{{i.oct | default:'-'}}</td>
+                <td style="background:{{i.nov|pick_color}}">{{i.nov | default:'-'}}</td>
+                <td style="background:{{i.dec|pick_color}}">{{i.dec | default:'-'}}</td>
+                <td style="background:#808080">{{i.summ | default:'-'}}</td>
             </tr>
             {% endfor %}
-
         </table>
+
     </div>
 </div>
 {% endblock %}

@@ -1,19 +1,12 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
-{% block navbar %}
-<li><a href="{% url 'examples' %}">Примеры</a></li>
-<li class="active"><a href="{% url 'contacts' %}">Контакты</a></li>
-<li><a href="{% url 'about' %}">О проекте</a></li>
-{% endblock %}
 
 {% block name %}Где можно посмотреть и купить{% endblock %}
 
 {% block contents %}
-<div class="col s12 m8">
     <div>Ждем вас по адресу
         <b>Кремниевая долина, Купертино, Калифорния</b>
     </div>
-</div>
 {% endblock %}
 

@@ -108,7 +108,7 @@ STATIC_URL = '/static/'
 
 SECRET_KEY = 'put your secret here'
 DEBUG = True
-
+CSV_FILE = 'inflation_russia.csv'
 try:
     from .settings_local import *
 except ImportError:

@@ -1,14 +1,10 @@
 {% extends 'app/base.html' %}
 {% load static %}
 
-{%block navbar %}
-<li class="active"><a href="{% url 'examples' %}">Примеры</a></li>
-<li><a href="{% url 'contacts' %}">Контакты</a></li>
-<li><a href="{% url 'about' %}">О проекте</a></li>
-{%endblock%}
-
 {% block name %}Каталог компьютеров Apple {%endblock%}
 
 {% block contents %}
+{% for item in items %}
 {% include 'app/examples_image.html' with items=items %}
+{% endfor %}
 {%endblock%}
