@@ -13,8 +13,7 @@ def format_date(value):
         return 'Только что'
     elif (now - value) < datetime.timedelta(hours=24, minutes=0, seconds=0):
         return f'{(now - value).seconds // 3600} часов назад'
-    elif (now - value) > datetime.timedelta(hours=24, minutes=0, seconds=0):
-        return value.strftime('%Y %B %d')
+    return value.strftime('%Y %B %d')
 
 
 # необходимо добавить фильтр для поля `score`
@@ -27,8 +26,7 @@ def format_num_comments(value):
         return "Оставьте комментарий"
     elif 0 < value < 50:
         return value
-    elif value > 50:
-        return '50+'
+    return '50+'
 
 
 @register.filter
@@ -38,20 +36,23 @@ def format_scope(scope):
         return 'Всё плохо'
     elif -5 < scope < 5:
         return 'Нейтрально'
-    elif scope > 5:
-        return 'Хорошо'
+    return 'Хорошо'
 
 
 @register.filter
 def format_selftext(value, count):
-    value.replace('\n', ' ')
-    value = value.split(' ')
+    temp_value = value.replace('\n', ' ')
+    temp_value = temp_value.split(' ')
 
-    value1 = value[:count]
-    value2 = value[len(value) - count:]
+    if len(temp_value) <= count * 2:
+        return value
+
+    value1 = temp_value[:count]
+    value2 = temp_value[len(temp_value) - count:]
 
     result = ' '.join(value1) + '...' + ' '.join(value2)
-    if result != '...':
-        return result
-    else:
-        return ''
+
+    return result
+
+
+print(format_selftext(value='one two three four', count=2))
