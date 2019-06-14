@@ -20,22 +20,22 @@
     <div class="col s12 m8">
 
         <table>
-            {% for i in rows %}
             <tr>
-                <td>{{i.year | default:'-'}}</td>
-                <td style="background:{{i.jan|pick_color}}">{{i.jan | default:'-'}}</td>
-                <td style="background:{{i.feb|pick_color}}">{{i.feb | default:'-'}}</td>
-                <td style="background:{{i.march|pick_color}}">{{i.march | default:'-'}}</td>
-                <td style="background:{{i.apr|pick_color}}">{{i.apr | default:'-'}}</td>
-                <td style="background:{{i.may|pick_color}}">{{i.may | default:'-'}}</td>
-                <td style="background:{{i.jun|pick_color}}">{{i.jun | default:'-'}}</td>
-                <td style="background:{{i.july|pick_color}}">{{i.july | default:'-'}}</td>
-                <td style="background:{{i.aug|pick_color}}">{{i.aug | default:'-'}}</td>
-                <td style="background:{{i.sept|pick_color}}">{{i.sept | default:'-'}}</td>
-                <td style="background:{{i.oct|pick_color}}">{{i.oct | default:'-'}}</td>
-                <td style="background:{{i.nov|pick_color}}">{{i.nov | default:'-'}}</td>
-                <td style="background:{{i.dec|pick_color}}">{{i.dec | default:'-'}}</td>
-                <td style="background:#808080">{{i.summ | default:'-'}}</td>
+                {% for field in fieldnames%}
+                <td>{{field}}</td>
+                {% endfor %}
+            </tr>
+            {% for line in rows %}
+            <tr>
+                {% for key,value in line.items %}
+                {% if key != fieldnames|first and key != fieldnames|last %}
+                <td style="background:{{value|pick_color}}">{{value|default:'-'}}</td>
+                {% elif key == fieldnames|last %}
+                <td style="background:#808080">{{value}}</td>
+                {% else %}
+                <td>{{value}}</td>
+                {% endif %}
+                {%endfor%}
             </tr>
             {% endfor %}
         </table>
