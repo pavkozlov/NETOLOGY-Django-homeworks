@@ -6,6 +6,68 @@
     <div class="container">
         <div class="header">
             <h1>Сравнение телефонов</h1>
+            <table>
+                <tr>
+                <td>Бренд</td>
+                {% for phone in phones %}
+                <th>{{phone.brand}}</th>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>Цена</td>
+                {% for phone in phones %}
+                <td>{{phone.price}} руб</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>Камера</td>
+                {% for phone in phones %}
+                <td>{{phone.camera}} МП</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>ОЗУ</td>
+                {% for phone in phones %}
+                <td>{{phone.ram}} Гб</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>Экран</td>
+                {% for phone in phones %}
+                <td>{{phone.display}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>BlueTooth</td>
+                {% for phone in phones %}
+                <td>{{phone.bluetooth}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>Комплектация</td>
+                {% for phone in phones %}
+                <td>{{phone.kit|default:'-'}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>Быстрая зарядка</td>
+                {% for phone in phones %}
+                <td>{{phone.fastcharge|default:'-'}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>NFS</td>
+                {% for phone in phones %}
+                <td>{{phone.nfs|default:'-'}}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                <td>Гироскоп</td>
+                {% for phone in phones %}
+                <td>{{phone.hyroscope|default:'-'}}</td>
+                {% endfor %}
+                </tr>
+            </table>
         </div>
     </div>
 {% endblock %}
