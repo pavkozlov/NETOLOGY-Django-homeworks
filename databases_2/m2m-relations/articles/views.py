@@ -1,9 +1,14 @@
-from django.views.generic import ListView
-
+from django.shortcuts import render
 from articles.models import Article
 
 
-class ArticleListView(ListView):
-    template_name = 'articles/news.html'
-    model = Article
-    ordering = '-published_at'
+def articles_list(request):
+    template = 'articles/news.html'
+
+    articles = Article.objects.all().prefetch_related('articlescope_set').order_by('-published_at')
+
+    context = {
+        'object_list': articles
+    }
+
+    return render(request, template, context)
