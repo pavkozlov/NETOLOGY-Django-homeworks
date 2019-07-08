@@ -20,7 +20,7 @@ def show_catalog(request):
         if i.brand == 'Apple':
             res['kit'] = Apple.objects.get(id=1).kit
         if i.brand == 'Samsung':
-            res['fastcharge'] = Samsung.objects.get(id=1).fastcharge
+            res['fastcharge'] = i.samsung.first().fastcharge
         if i.brand == 'Asus':
             res['nfs'] = Asus.objects.get(id=1).nfs
         if i.brand == 'Xiaomi':

@@ -17,10 +17,12 @@ class Apple(models.Model):
 
 class Samsung(models.Model):
     fastcharge = models.BooleanField()
+    telephone = models.ForeignKey(Phone, related_name='samsung', on_delete=models.CASCADE, default='')
 
 
 class Asus(models.Model):
     nfs = models.BooleanField()
+
 
 class Xiaomi(models.Model):
     hyroscope = models.BooleanField()
