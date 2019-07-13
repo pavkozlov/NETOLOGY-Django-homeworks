@@ -4,9 +4,22 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="header"></div>
-            Привет, <b>гость</b>.<br>
-            Пожалуйста, <a href="/signup">зарегистрируйся</a> или <a href="/login">авторизуйся</a>!
-    </div>
+<div class="container">
+    <div class="header"></div>
+    Привет, <b>{% if username %} {{username}}{% else %} гость{% endif %}</b>.<br>
+    {% if username %}
+    <form action="{% url 'signup' %}">
+        <button type="submit">Зарегистрировать нового пользователя</button>
+    </form>
+    <form action="{% url 'login' %}">
+        <button type="submit">Авторизоваться под другим пользователем</button>
+    </form>
+    <form action="{% url 'logout' %}">
+        <button type="submit">Выйти</button>
+    </form>
+
+    {% else %}
+    Пожалуйста, <a href="{% url 'signup' %}">зарегистрируйся</a> или <a href="{% url 'login' %}">авторизуйся</a>!
+    {% endif %}
+</div>
 {% endblock %}

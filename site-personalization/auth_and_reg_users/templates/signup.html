@@ -7,5 +7,18 @@
     <div class="container">
         <div class="header"></div>
         <h2>Регистрация</h2>
+        <form action="{% url 'signup' %}" method="post">
+                     {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+            {{forms.as_p}}
+            {% csrf_token %}
+            <input type="submit">
+        </form>
+
     </div>
 {% endblock %}
