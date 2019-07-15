@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'subscribe' %}" method="post">
+    {% csrf_token %}
+    {% if is_auth %} <input type="submit"> {% else %} Пожалуйста, авторизуйтесь! {% endif %}
+</form>
+</body>
+</html>
